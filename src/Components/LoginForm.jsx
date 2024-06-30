@@ -1,0 +1,81 @@
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import '../styles/form.css';
+import Form from './Form';
+import InputField from './InputField';
+
+const LoginForm = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
+  const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json();
+      if (response.ok) {
+        console.log('Response:', result.token);
+        localStorage.setItem('token', result.token);
+        navigate('/manage-posts');
+      } else {
+        const errorArray = result.map((error) => {
+          return error.msg;
+        });
+        setErrors(errorArray);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
+
+  return (
+    <div className="form-layout">
+      <Form method="post" onSubmit={handleSubmit} buttonText="Log In">
+        <h1 className="form-title">Log In</h1>
+        <InputField
+          label="Username"
+          name="username"
+          type="text"
+          onChange={handleChange}
+        />
+        <InputField
+          label="Password"
+          name="password"
+          type="password"
+          onChange={handleChange}
+        />
+      </Form>
+      <p>
+        Don't have an account? <Link to="/signup">Sign up</Link>
+      </p>
+      {errors.length > 0 && (
+        <div className="error-list">
+          <span style={{ color: 'black' }}>Errors</span>
+          {errors.map((error, index) => (
+            <p key={index}>{error}</p>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default LoginForm;

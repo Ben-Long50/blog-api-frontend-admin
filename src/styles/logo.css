@@ -1,0 +1,28 @@
+.logo {
+  display: grid;
+  grid-template-areas:
+    'icon line-1'
+    'icon line-2';
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+  align-items: center;
+}
+
+.icon {
+  grid-area: icon;
+}
+
+.logo-line-1,
+.logo-line-2 {
+  font-size: 1.5rem;
+}
+
+.logo-line-1 {
+  grid-area: line-1;
+  align-self: self-end;
+}
+
+.logo-line-2 {
+  grid-area: line-2;
+  align-self: self-start;
+}

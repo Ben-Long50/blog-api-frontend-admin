@@ -1,0 +1,41 @@
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-title {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.form {
+  margin-top: 15%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: solid black 1px;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.form-field,
+.error-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.error-list {
+  color: red;
+  border: solid black 1px;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.submit-button {
+  align-self: center;
+}
