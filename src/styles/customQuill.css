@@ -1,0 +1,13 @@
+.quill {
+  display: flex;
+  flex-direction: column;
+}
+
+.ql-container {
+  flex-grow: 1;
+}
+
+.ql-editor {
+  font-size: 1.25rem;
+  min-height: 300px;
+}

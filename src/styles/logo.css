@@ -15,6 +15,9 @@
 .logo-line-1,
 .logo-line-2 {
   font-size: 1.5rem;
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
 .logo-line-1 {
@@ -25,4 +28,8 @@
 .logo-line-2 {
   grid-area: line-2;
   align-self: self-start;
+}
+
+.minor-words {
+  font-size: 1rem;
 }

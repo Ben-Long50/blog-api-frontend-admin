@@ -9,19 +9,19 @@ import LoginForm from './Components/LoginForm.jsx';
 import SignupForm from './Components/SignupForm.jsx';
 import Posts from './Components/Posts.jsx';
 import PostForm from './Components/PostForm.jsx';
+import PostDetail from './Components/PostDetail.jsx';
+import PostList from './Components/PostList.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />} errorElement={<ErrorPage />}>
-      {/* <Route index element={<Homepage />} /> */}
       <Route path="login" element={<LoginForm />} />
       <Route path="signup" element={<SignupForm />} />
-      <Route path="manage-posts" element={<Posts />} />
+      <Route path="manage-posts" element={<Posts />}>
+        <Route index element={<PostList />} />
+        <Route path=":postId" element={<PostDetail />} />
+      </Route>
       <Route path="create-post" element={<PostForm />} />
-      {/* <Route path="greek" element={<Posts />} />
-      <Route path="japanese" element={<Posts />} />
-      <Route path="login" element={<Login />} />
-      <Route path="signup" element={<Signup />} /> */}
     </Route>,
   ),
 );

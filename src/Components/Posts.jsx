@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
+import '../styles/form.css';
+import '../styles/post.css';
+import { Outlet } from 'react-router-dom';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
-  const [errors, setErrors] = useState([]);
+  const [mythosCategories, setMythosCategories] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -11,7 +14,7 @@ const Posts = () => {
         const response = await fetch('http://localhost:3000/posts', {
           headers: {
             'Content-Type': 'application/json',
-            ...(token && { Authorization: `Bearer ${token}` }),
+            Authorization: `Bearer ${token}`,
           },
         });
         if (!response.ok) {
@@ -20,6 +23,19 @@ const Posts = () => {
         }
         const data = await response.json();
         setPosts(data);
+        const categories = data.map((post) => {
+          return post.mythos;
+        });
+        const uniqueCategories = categories.reduce(
+          (accumulator, currentValue) => {
+            if (!accumulator.includes(currentValue)) {
+              accumulator.push(currentValue);
+            }
+            return accumulator;
+          },
+          [],
+        );
+        setMythosCategories(uniqueCategories);
       } catch (error) {
         console.error(error);
       }
@@ -29,15 +45,8 @@ const Posts = () => {
   }, []);
 
   return (
-    <div>
-      {posts.map((post, index) => {
-        return (
-          <div key={index}>
-            <img src={post.image} alt="" />
-            <h2>{post.title}</h2>
-          </div>
-        );
-      })}
+    <div className="layout">
+      <Outlet context={[posts, setPosts, mythosCategories]} />
     </div>
   );
 };
