@@ -3,6 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 import '../styles/form.css';
 import '../styles/post.css';
 import PostCard from './PostCard';
+import List from './List';
 
 const PostList = () => {
   const [posts, setPosts, mythosCategories] = useOutletContext();
@@ -33,19 +34,16 @@ const PostList = () => {
 
   return (
     <>
-      <ul className="category-list">
-        <li onClick={handleCategory}>All</li>
+      <List>
+        <div onClick={handleCategory}>All</div>
         {mythosCategories.map((category, index) => {
           return (
-            <>
-              <hr />
-              <li key={index} onClick={handleCategory}>
-                {category}
-              </li>
-            </>
+            <div key={index} onClick={handleCategory}>
+              {category}
+            </div>
           );
         })}
-      </ul>
+      </List>
       <div className="post-card-layout">
         {filteredPosts.map((post) => {
           return (

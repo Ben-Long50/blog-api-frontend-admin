@@ -3,7 +3,7 @@
   grid-template-areas:
     'icon line-1'
     'icon line-2';
-  column-gap: 1rem;
+  /* column-gap: 1rem; */
   row-gap: 0.25rem;
   align-items: center;
 }
@@ -14,7 +14,7 @@
 
 .logo-line-1,
 .logo-line-2 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   margin: 0;
   padding: 0;
   text-align: center;
@@ -23,6 +23,7 @@
 .logo-line-1 {
   grid-area: line-1;
   align-self: self-end;
+  justify-self: start;
 }
 
 .logo-line-2 {

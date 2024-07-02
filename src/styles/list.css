@@ -1,0 +1,32 @@
+.category-list {
+  box-sizing: border-box;
+  height: 3rem;
+  border-radius: 1.5rem;
+  width: auto;
+  margin: 0;
+  padding: 0 0.25rem;
+  font-size: 2rem;
+  gap: 1rem;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--box-shadow);
+}
+
+.category-list > li {
+  height: 2.5rem;
+  border-radius: 1.25rem;
+  flex-grow: 1;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.category-list > li:hover {
+  transform: translateY(-1.5px);
+  box-shadow: var(--box-shadow);
+}

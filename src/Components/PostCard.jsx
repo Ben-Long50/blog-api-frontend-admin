@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
+import Button from './Button';
 
 const PostCard = (props) => {
   const [active, setActive] = useState(props.active);
@@ -34,9 +35,11 @@ const PostCard = (props) => {
       </Link>
       <div className="card-info">
         <h2 className="card-title">{props.title}</h2>
-        <button onClick={handleActive} className="status-button">
-          {!active ? 'Draft' : 'Active'}
-        </button>
+        <Button
+          text={!active ? 'Draft' : 'Active'}
+          onClick={handleActive}
+          classes="status-button"
+        />
         <p className="updated-label">Created:</p>
         <p className="date">{dateCreated}</p>
         <p className="updated-label">Last Updated:</p>

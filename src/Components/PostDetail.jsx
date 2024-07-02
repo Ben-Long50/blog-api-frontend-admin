@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom';
+import Button from './Button';
 
 const PostDetail = () => {
   const [postDetails, setPostDetails] = useState('');
@@ -28,8 +29,8 @@ const PostDetail = () => {
         },
       });
       const result = await response.json();
-      console.log(result);
       if (response.ok) {
+        console.log(result);
         const existingPosts = posts.filter((post) => {
           if (post._id !== postId) {
             return post;
@@ -47,8 +48,10 @@ const PostDetail = () => {
 
   return (
     <div className="post-layout">
-      <button>Edit Post</button>
-      <button onClick={handleDelete}>Delete Post</button>
+      <Link to="edit-post" state={{ postId }}>
+        <Button text="Edit Post" />
+      </Link>
+      <Button text="Delete Post" onClick={handleDelete} />
       <img className="post-image" src={postDetails.image} alt="hello" />
       <h1 className="post-title">{postDetails.title}</h1>
       <main

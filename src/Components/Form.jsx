@@ -1,3 +1,5 @@
+import Button from './Button';
+
 const Form = (props) => {
   return (
     <form
@@ -6,9 +8,7 @@ const Form = (props) => {
       className={`form ${props.class}`}
     >
       {props.children}
-      <button className="submit-button" type="submit">
-        {props.buttonText}
-      </button>
+      <Button text={props.buttonText} type="submit" classes="submit-button" />
     </form>
   );
 };

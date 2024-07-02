@@ -6,26 +6,6 @@
   gap: 2rem;
 }
 
-hr {
-  margin: 0;
-  border: solid rgb(100, 100, 100) 0.5px;
-}
-
-.category-list {
-  font-size: 2rem;
-  list-style: none;
-  display: flex;
-}
-
-.category-list > li {
-  box-sizing: border-box;
-  padding: 0 2rem;
-}
-
-.category-list > li:hover {
-  background-color: rgb(202, 202, 202);
-}
-
 .post-card-layout {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -35,11 +15,11 @@ hr {
 }
 
 .post-card {
-  max-width: 500px;
+  max-width: 450px;
   display: flex;
   flex-direction: column;
   -webkit-box-shadow: 0px 3px 10px 0px rgb(100, 100, 100);
-  box-shadow: 0px 5px 15px 0px rgb(100, 100, 100);
+  box-shadow: var(--box-shadow);
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
@@ -49,8 +29,9 @@ hr {
   height: 100%;
   display: grid;
   grid-template-areas: 'title status' 'updateLabel date';
+  grid-template-rows: 1fr auto auto;
   padding: 1rem;
-  row-gap: 1rem;
+  gap: 1rem;
 }
 
 .card-info > * {

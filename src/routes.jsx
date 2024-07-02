@@ -11,6 +11,7 @@ import Posts from './Components/Posts.jsx';
 import PostForm from './Components/PostForm.jsx';
 import PostDetail from './Components/PostDetail.jsx';
 import PostList from './Components/PostList.jsx';
+import EditPostForm from './Components/EditPostForm.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
       <Route path="manage-posts" element={<Posts />}>
         <Route index element={<PostList />} />
         <Route path=":postId" element={<PostDetail />} />
+        <Route path=":postId/edit-post" element={<EditPostForm />} />
       </Route>
       <Route path="create-post" element={<PostForm />} />
     </Route>,

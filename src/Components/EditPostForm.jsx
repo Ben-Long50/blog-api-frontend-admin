@@ -1,61 +1,36 @@
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
+import { useEffect, useState, useRef, useParams } from 'react';
 import Form from './Form';
 import InputField from './InputField';
-import { jwtDecode } from 'jwt-decode';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import '../styles/form.css';
 import '../styles/customQuill.css';
 
-const PostForm = () => {
+const EditPostForm = () => {
+  const location = useLocation();
+  const { postId } = location.state;
   const [title, setTitle] = useState('');
   const [mythos, setMythos] = useState('');
-  const [author, setAuthor] = useState('');
   const [body, setBody] = useState('');
   const [image, setImage] = useState(undefined);
-  const [mythosCategories, setMythosCategories] = useState([]);
+  const [posts, setPosts, mythosCategories] = useOutletContext();
 
   const hiddenInputRef = useRef(null);
   const selectRef = useRef('');
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const decodedUser = jwtDecode(token);
-    setAuthor(decodedUser.user._id);
-
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:3000/posts', {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) {
-          throw new Error('Forbidden');
-        }
-        const data = await response.json();
-        const categories = data.map((post) => {
-          return post.mythos;
-        });
-        const uniqueCategories = categories.reduce(
-          (accumulator, currentValue) => {
-            if (!accumulator.includes(currentValue)) {
-              accumulator.push(currentValue);
-            }
-            return accumulator;
-          },
-          [],
-        );
-        setMythosCategories(uniqueCategories);
-      } catch (error) {
-        console.error(error);
+    const post = posts.find((post) => {
+      if (post._id === postId) {
+        return post;
       }
-    };
-    fetchData();
+    });
+    console.log(post);
+    setTitle(post.title);
+    setMythos(post.mythos);
+    setBody(post.body);
+    setImage(post.image);
   }, []);
 
   const handleInput = (e) => {
@@ -86,17 +61,16 @@ const PostForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(image);
     const formData = new FormData();
     formData.append('title', title);
     formData.append('mythos', mythos);
-    formData.append('author', author);
     formData.append('body', body);
     formData.append('image', image);
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3000/posts', {
+      const response = await fetch(`http://localhost:3000/posts/${postId}`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -106,8 +80,25 @@ const PostForm = () => {
 
       const result = await response.json();
       if (response.ok) {
-        console.log('Draft Submitted:', result);
-        navigate('/manage-posts');
+        console.log(result);
+        const index = posts.findIndex((post) => post._id === result._id);
+        const updatedPosts = posts.map((post, i) => {
+          if (i === index) {
+            return {
+              ...post,
+              title: result.title,
+              mythos: result.mythos,
+              body: result.body,
+              image: result.image,
+              dateUpdated: result.dateUpdated,
+            };
+          } else {
+            return post;
+          }
+        });
+        console.log(updatedPosts);
+        setPosts(updatedPosts);
+        navigate(`/manage-posts/${postId}`);
       } else {
         console.error(result);
       }
@@ -122,13 +113,14 @@ const PostForm = () => {
         method="post"
         class="post-form"
         onSubmit={handleSubmit}
-        buttonText="Create Draft"
+        buttonText="Submit Edits"
       >
-        <h1 className="form-title">Create Post</h1>
+        <h1 className="form-title">Edit Post</h1>
         <InputField
           label="Title"
           name="title"
           type="text"
+          value={title}
           onChange={handleInput}
         />
         <label htmlFor="mythos">Mythos</label>
@@ -180,4 +172,4 @@ const PostForm = () => {
   );
 };
 
-export default PostForm;
+export default EditPostForm;
