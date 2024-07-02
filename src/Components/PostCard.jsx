@@ -10,12 +10,15 @@ const PostCard = (props) => {
   const handleActive = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:3000/posts/${props.id}`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `http://localhost:3000/posts/${props.id}/activity`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       if (response.ok) {
         setActive(!active);
       }

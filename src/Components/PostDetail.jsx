@@ -4,9 +4,8 @@ import { useOutletContext } from 'react-router-dom';
 
 const PostDetail = () => {
   const [postDetails, setPostDetails] = useState('');
-  //   const [active, setActive] = useState(null);
   const { postId } = useParams();
-  const [posts, mythosCategories] = useOutletContext();
+  const [posts, setPosts, mythosCategories] = useOutletContext();
 
   const navigate = useNavigate();
 
@@ -16,26 +15,8 @@ const PostDetail = () => {
         return post;
       }
     });
-    console.log(post);
     setPostDetails(post);
   }, []);
-
-  //   const handleActive = async () => {
-  //     try {
-  //       const token = localStorage.getItem('token');
-  //       const response = await fetch(`http://localhost:3000/posts/${postId}`, {
-  //         method: 'PUT',
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  //       if (response.ok) {
-  //         setActive(!active);
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
 
   const handleDelete = async () => {
     try {
@@ -46,8 +27,18 @@ const PostDetail = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      const result = await response.json();
+      console.log(result);
       if (response.ok) {
+        const existingPosts = posts.filter((post) => {
+          if (post._id !== postId) {
+            return post;
+          }
+        });
+        setPosts(existingPosts);
         navigate('/manage-posts');
+      } else {
+        console.error(result);
       }
     } catch (error) {
       console.error(error);
