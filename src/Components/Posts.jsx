@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react';
 import '../styles/form.css';
 import '../styles/post.css';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const Posts = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(() => {
+    const storedPosts = localStorage.getItem('posts');
+    const parsedPosts = JSON.parse(storedPosts);
+    return Array.isArray(parsedPosts) ? parsedPosts : [];
+  });
   const [mythosCategories, setMythosCategories] = useState([]);
+  const [errors, setErrors] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,11 +25,13 @@ const Posts = () => {
           },
         });
         if (!response.ok) {
+          navigate('/login');
           console.log(response);
           throw new Error('Forbidden');
         }
         const data = await response.json();
         setPosts(data);
+        localStorage.setItem('posts', JSON.stringify(data));
         const categories = data.map((post) => {
           return post.mythos;
         });
@@ -46,7 +55,9 @@ const Posts = () => {
 
   return (
     <div className="layout">
-      <Outlet context={[posts, setPosts, mythosCategories]} />
+      <Outlet
+        context={[posts, setPosts, errors, setErrors, mythosCategories]}
+      />
     </div>
   );
 };

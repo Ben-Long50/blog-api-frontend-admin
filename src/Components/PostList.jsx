@@ -7,7 +7,8 @@ import List from './List';
 import Button from './Button';
 
 const PostList = () => {
-  const [posts, setPosts, mythosCategories] = useOutletContext();
+  const [posts, setPosts, errors, setErrors, mythosCategories] =
+    useOutletContext();
   const [activeCategory, setActiveCategory] = useState('All');
   const [filteredPosts, setFilteredPosts] = useState(posts);
 
@@ -35,28 +36,33 @@ const PostList = () => {
 
   return (
     <>
+      <h1 className="header">Manage Posts</h1>
       <List>
         <Button text="All" onClick={handleCategory} />
         {mythosCategories.map((category, index) => {
           return (
-            <Button text={category} key={index} onClick={handleCategory} />
+            <Button key={index} onClick={handleCategory}>
+              <div style={{ padding: '0 1.5rem' }}>{category}</div>
+            </Button>
           );
         })}
       </List>
-      <div className="post-card-layout">
-        {filteredPosts.map((post) => {
-          return (
-            <PostCard
-              key={post._id}
-              id={post._id}
-              image={post.image}
-              title={post.title}
-              dateUpdated={post.dateUpdated}
-              dateCreated={post.dateCreated}
-              active={!post.draft}
-            />
-          );
-        })}
+      <div className="post-card-container">
+        <div className="post-card-layout">
+          {filteredPosts.map((post) => {
+            return (
+              <PostCard
+                key={post._id}
+                id={post._id}
+                image={post.image}
+                title={post.title}
+                dateUpdated={post.dateUpdated}
+                dateCreated={post.dateCreated}
+                active={!post.draft}
+              />
+            );
+          })}
+        </div>
       </div>
     </>
   );

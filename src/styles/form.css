@@ -1,10 +1,10 @@
 .form-layout {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   justify-content: center;
   align-items: center;
-  padding: 4rem;
 }
 
 .form-title {
@@ -15,6 +15,8 @@
 }
 
 .form {
+  border: 1px solid #ccc;
+  background-color: var(--color-lvl-1);
   max-width: 1000px;
   display: flex;
   flex-direction: column;
@@ -37,14 +39,21 @@
 }
 
 .error-list {
+  background-color: var(--color-lvl-1);
+  box-shadow: var(--box-shadow);
   color: red;
-  border: solid black 1px;
   border-radius: 8px;
   padding: 1rem;
 }
 
+.error-list > * {
+  margin: 0;
+  padding: 0;
+}
+
 .submit-button {
   align-self: center;
+  width: auto;
 }
 
 input,
@@ -52,4 +61,24 @@ select,
 option,
 label {
   font-size: 1.25rem;
+}
+
+input#title,
+input#firstName,
+input#lastName,
+input#username,
+input#password,
+input#confirmPassword,
+select,
+option {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: var(--color-base);
+  padding: 0.5rem;
+}
+
+@media (max-width: 800px) {
+  .form-layout {
+    gap: 1rem;
+  }
 }

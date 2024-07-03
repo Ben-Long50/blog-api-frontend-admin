@@ -21,13 +21,12 @@ const PostForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const decodedUser = jwtDecode(token);
-    setAuthor(decodedUser.user._id);
-
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
+        const decodedUser = jwtDecode(token);
+        setAuthor(decodedUser.user._id);
+
         const response = await fetch('http://localhost:3000/posts', {
           headers: {
             'Content-Type': 'application/json',
@@ -117,65 +116,68 @@ const PostForm = () => {
   };
 
   return (
-    <div className="form-layout">
-      <Form
-        method="post"
-        class="post-form"
-        onSubmit={handleSubmit}
-        buttonText="Create Draft"
-      >
-        <h1 className="form-title">Create Post</h1>
-        <InputField
-          label="Title"
-          name="title"
-          type="text"
-          onChange={handleInput}
-        />
-        <label htmlFor="mythos">Mythos</label>
-        <select
-          name="mythos"
-          id="mythos"
-          ref={selectRef}
-          onChange={handleInput}
+    <div className="layout">
+      <div className="form-layout">
+        <h1 className="header">Create Post</h1>
+        <Form
+          method="post"
+          class="post-form"
+          onSubmit={handleSubmit}
+          buttonText="Create Draft"
         >
-          <option value="" disabled selected>
-            Select or create a mythos
-          </option>
-          {mythosCategories.map((category, index) => {
-            return (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            );
-          })}
-          <option value="Create new mythos">Create new mythos</option>
-        </select>
-        {selectRef.current.value === 'Create new mythos' && (
-          <>
-            <InputField
-              label="Enter new mythos category"
-              name="mythos"
-              type="text"
-              onChange={handleInput}
-            />
-          </>
-        )}
-        <InputField
-          label="Image"
-          name="image"
-          type="file"
-          onChange={handleUpload}
-        />
-        <label htmlFor="body">Content</label>
-        <ReactQuill theme="snow" value={body} onChange={handleBody} />
-        <input
-          id="body"
-          type="hidden"
-          name="body"
-          ref={hiddenInputRef}
-          value={body}
-        />
-      </Form>
+          <InputField
+            label="Title"
+            name="title"
+            type="text"
+            onChange={handleInput}
+          />
+          <label htmlFor="mythos">Mythos</label>
+          <select
+            name="mythos"
+            id="mythos"
+            ref={selectRef}
+            onChange={handleInput}
+            defaultValue={mythos}
+          >
+            <option value="" disabled>
+              Select or create a mythos
+            </option>
+            {mythosCategories.map((category, index) => {
+              return (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              );
+            })}
+            <option value="Create new mythos">Create new mythos</option>
+          </select>
+          {selectRef.current.value === 'Create new mythos' && (
+            <>
+              <InputField
+                label="Enter new mythos category"
+                name="mythos"
+                type="text"
+                onChange={handleInput}
+              />
+            </>
+          )}
+          <InputField
+            label="Image"
+            name="image"
+            type="file"
+            onChange={handleUpload}
+          />
+          <label htmlFor="body">Content</label>
+          <ReactQuill theme="snow" value={body} onChange={handleBody} />
+          <input
+            id="body"
+            type="hidden"
+            name="body"
+            ref={hiddenInputRef}
+            value={body}
+          />
+        </Form>
+      </div>
     </div>
   );
 };

@@ -16,22 +16,9 @@ const List = (props) => {
   };
 
   return (
-    <ul ref={listRef} className="category-list">
-      {Children.map(props.children, (child, index) => (
-        <li
-          key={index}
-          id={index}
-          //   style={
-          //     index === activeItem
-          //       ? { backgroundColor: 'rgb(210, 211, 219)', color: 'black' }
-          //       : { color: 'black' }
-          //   }
-          onClick={(e) => handleActive(e, index)}
-        >
-          {child}
-        </li>
-      ))}
-    </ul>
+    <div ref={listRef} className="category-list">
+      {props.children}
+    </div>
   );
 };
 

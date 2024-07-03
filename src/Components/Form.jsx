@@ -8,7 +8,9 @@ const Form = (props) => {
       className={`form ${props.class}`}
     >
       {props.children}
-      <Button text={props.buttonText} type="submit" classes="submit-button" />
+      <Button type="submit" classes="submit-button">
+        <div style={{ padding: '0 1.5rem' }}>{props.buttonText}</div>
+      </Button>
     </form>
   );
 };

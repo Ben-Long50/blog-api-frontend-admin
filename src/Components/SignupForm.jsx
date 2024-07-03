@@ -49,51 +49,53 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="form-layout">
-      <Form method="post" onSubmit={handleSubmit} buttonText="Sign Up">
-        <h1 className="form-title">Sign Up</h1>
-        <InputField
-          label="First Name"
-          name="firstName"
-          type="text"
-          onChange={handleChange}
-        />
-        <InputField
-          label="Last Name"
-          name="lastName"
-          type="text"
-          onChange={handleChange}
-        />
-        <InputField
-          label="Username"
-          name="username"
-          type="text"
-          onChange={handleChange}
-        />
-        <InputField
-          label="Password"
-          name="password"
-          type="password"
-          onChange={handleChange}
-        />
-        <InputField
-          label="Confirm Password"
-          name="confirmPassword"
-          type="password"
-          onChange={handleChange}
-        />
-      </Form>
-      <p>
-        Already have an account? <Link to="/login">Log in</Link>
-      </p>
-      {errors.length > 0 && (
-        <div className="error-list">
-          <span style={{ color: 'black' }}>Errors</span>
-          {errors.map((error, index) => (
-            <p key={index}>{error}</p>
-          ))}
-        </div>
-      )}
+    <div className="layout">
+      <div className="form-layout">
+        <Form method="post" onSubmit={handleSubmit} buttonText="Sign Up">
+          <h1 className="form-title">Sign Up</h1>
+          <InputField
+            label="First Name"
+            name="firstName"
+            type="text"
+            onChange={handleChange}
+          />
+          <InputField
+            label="Last Name"
+            name="lastName"
+            type="text"
+            onChange={handleChange}
+          />
+          <InputField
+            label="Username"
+            name="username"
+            type="text"
+            onChange={handleChange}
+          />
+          <InputField
+            label="Password"
+            name="password"
+            type="password"
+            onChange={handleChange}
+          />
+          <InputField
+            label="Confirm Password"
+            name="confirmPassword"
+            type="password"
+            onChange={handleChange}
+          />
+        </Form>
+        <p>
+          Already have an account? <Link to="/login">Log in</Link>
+        </p>
+        {errors.length > 0 && (
+          <div className="error-list">
+            <span style={{ color: 'black' }}>Errors</span>
+            {errors.map((error, index) => (
+              <p key={index}>{error}</p>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

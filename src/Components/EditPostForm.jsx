@@ -14,7 +14,8 @@ const EditPostForm = () => {
   const [mythos, setMythos] = useState('');
   const [body, setBody] = useState('');
   const [image, setImage] = useState(undefined);
-  const [posts, setPosts, mythosCategories] = useOutletContext();
+  const [posts, setPosts, errors, setErrors, mythosCategories] =
+    useOutletContext();
 
   const hiddenInputRef = useRef(null);
   const selectRef = useRef('');
@@ -26,7 +27,6 @@ const EditPostForm = () => {
         return post;
       }
     });
-    console.log(post);
     setTitle(post.title);
     setMythos(post.mythos);
     setBody(post.body);
@@ -80,7 +80,6 @@ const EditPostForm = () => {
 
       const result = await response.json();
       if (response.ok) {
-        console.log(result);
         const index = posts.findIndex((post) => post._id === result._id);
         const updatedPosts = posts.map((post, i) => {
           if (i === index) {
@@ -96,7 +95,6 @@ const EditPostForm = () => {
             return post;
           }
         });
-        console.log(updatedPosts);
         setPosts(updatedPosts);
         navigate(`/manage-posts/${postId}`);
       } else {
@@ -109,13 +107,13 @@ const EditPostForm = () => {
 
   return (
     <div className="form-layout">
+      <h1 className="header">Edit Post</h1>
       <Form
         method="post"
         class="post-form"
         onSubmit={handleSubmit}
         buttonText="Submit Edits"
       >
-        <h1 className="form-title">Edit Post</h1>
         <InputField
           label="Title"
           name="title"
@@ -129,8 +127,9 @@ const EditPostForm = () => {
           id="mythos"
           ref={selectRef}
           onChange={handleInput}
+          defaultValue={mythos}
         >
-          <option value="" disabled selected>
+          <option value="" disabled>
             Select or create a mythos
           </option>
           {mythosCategories.map((category, index) => {

@@ -1,16 +1,16 @@
 .button {
-  width: 100%;
-  font-size: 1.25rem;
+  cursor: pointer;
+  width: auto;
+  min-width: 100px;
+  font-size: clamp(0.75rem, 3vw, 1.25rem);
   background-color: var(--color-accent-muted);
   box-shadow: var(--box-shadow);
   border: none;
   outline: none;
-  height: 2.5rem;
   border-radius: 1.25rem;
-  flex-grow: 1;
   text-align: center;
   box-sizing: border-box;
-  padding: 0 1rem;
+  padding: 0.5rem 0;
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
@@ -23,8 +23,6 @@
   background-color: var(--color-accent);
 }
 
-.button-inactive {
-}
 .button-active {
   background-color: var(--color-active-muted);
 }

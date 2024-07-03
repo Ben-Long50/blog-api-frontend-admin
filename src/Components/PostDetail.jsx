@@ -49,12 +49,16 @@ const PostDetail = () => {
 
   return (
     <div className="post-layout">
-      <h1 className="header">Post Preview</h1>
       <List>
-        <Link to="edit-post" state={{ postId }}>
-          <Button text="Edit Post" />
-        </Link>
-        <Button text="Delete Post" onClick={handleDelete} />
+        <h1 className="header">Post Preview</h1>
+        <Button>
+          <Link className="link" to="edit-post" state={{ postId }}>
+            Edit Post
+          </Link>
+        </Button>
+        <Button onClick={handleDelete}>
+          <div style={{ padding: '0 1.5rem' }}>Delete Post</div>
+        </Button>
       </List>
       <div className="post-contents">
         <img className="post-image" src={postDetails.image} alt="hello" />

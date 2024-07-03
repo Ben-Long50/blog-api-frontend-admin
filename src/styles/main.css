@@ -2,13 +2,14 @@ html,
 body,
 #root {
   min-height: 100vh;
+  width: 100vw;
   margin: 0;
   padding: 0;
   --box-shadow: 0px 3px 7px 0px rgb(100, 100, 100);
   --box-shadow-expanded: 0px 5px 10px 0px rgb(100, 100, 100);
   --color-base: rgb(245, 245, 245);
   --color-lvl-1: rgb(230, 230, 230);
-  --color-lvl-2: rgbrgb(210, 210, 210);
+  --color-lvl-2: rgb(210, 210, 210);
   --color-accent: rgb(30, 144, 255);
   --color-accent-muted: rgba(30, 143, 255, 0.45);
   --color-active: rgb(30, 255, 143);
@@ -17,13 +18,41 @@ body,
   color: rgb(33, 33, 33);
 }
 
+h1 {
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  line-height: 1.25;
+}
+
 * {
+  box-sizing: border-box;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
     'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.layout {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem;
+  gap: 2.5rem;
 }
 
 .header {
   margin: 0;
   padding: 0;
-  text-align: center;
+  justify-self: flex-start;
+  flex-grow: 1;
+}
+
+@media (max-width: 800px) {
+  .layout {
+    padding: 1.5rem;
+  }
+  .header {
+    text-align: center;
+  }
+  .layout {
+    gap: 1rem;
+  }
 }

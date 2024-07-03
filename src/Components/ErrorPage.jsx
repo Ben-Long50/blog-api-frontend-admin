@@ -2,11 +2,10 @@ import { Link } from 'react-router-dom';
 
 const ErrorPage = () => {
   return (
-    <div>
-      <h1>Oh no, this route doesn`&apos`t exist!</h1>
-      <Link to="/">
-        You can go back to the home page by clicking here, though!
-      </Link>
+    <div className="layout">
+      <h1>You don't have the permissions to view this page</h1>
+      <h2>(Or this page doesn't exist)</h2>
+      <Link to="/login">Please login to proceed</Link>
     </div>
   );
 };

@@ -1,17 +1,13 @@
-.layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 3rem;
-  gap: 2.5rem;
+.post-card-container {
+  width: clamp(0px, 100%, 1500px);
 }
 
 .post-card-layout {
+  width: auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  max-width: 1500px;
+  justify-items: center;
   gap: 2.5rem;
-  min-width: 0;
 }
 
 .post-card {
@@ -56,7 +52,7 @@
 }
 
 .status-button {
-  font-size: 1rem;
+  font-size: 1.25rem;
   padding: 0.25rem 0.75rem;
   align-self: start;
 }
@@ -108,4 +104,17 @@
 
 .post-body > ol > * {
   margin: 1.5rem 0;
+}
+
+@media (max-width: 800px) {
+  .post-contents {
+    padding: 0 1rem;
+  }
+  .post-image {
+    width: calc(100% + 2rem);
+    margin: 0 -1rem;
+  }
+  .post-layout {
+    gap: 1rem;
+  }
 }

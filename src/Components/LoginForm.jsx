@@ -1,8 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import '../styles/form.css';
 import Form from './Form';
 import InputField from './InputField';
+import { AuthContext } from './AuthContext';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const LoginForm = () => {
     password: '',
   });
   const [errors, setErrors] = useState([]);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -34,6 +36,7 @@ const LoginForm = () => {
       if (response.ok) {
         console.log('Response:', result.token);
         localStorage.setItem('token', result.token);
+        login();
         navigate('/manage-posts');
       } else {
         const errorArray = result.map((error) => {
@@ -47,33 +50,35 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="form-layout">
-      <Form method="post" onSubmit={handleSubmit} buttonText="Log In">
-        <h1 className="form-title">Log In</h1>
-        <InputField
-          label="Username"
-          name="username"
-          type="text"
-          onChange={handleChange}
-        />
-        <InputField
-          label="Password"
-          name="password"
-          type="password"
-          onChange={handleChange}
-        />
-      </Form>
-      <p>
-        Don't have an account? <Link to="/signup">Sign up</Link>
-      </p>
-      {errors.length > 0 && (
-        <div className="error-list">
-          <span style={{ color: 'black' }}>Errors</span>
-          {errors.map((error, index) => (
-            <p key={index}>{error}</p>
-          ))}
-        </div>
-      )}
+    <div className="layout">
+      <div className="form-layout">
+        <Form method="post" onSubmit={handleSubmit} buttonText="Log In">
+          <h1 className="form-title">Log In</h1>
+          <InputField
+            label="Username"
+            name="username"
+            type="text"
+            onChange={handleChange}
+          />
+          <InputField
+            label="Password"
+            name="password"
+            type="password"
+            onChange={handleChange}
+          />
+        </Form>
+        <p>
+          Don't have an account? <Link to="/signup">Sign up</Link>
+        </p>
+        {errors.length > 0 && (
+          <div className="error-list">
+            <span style={{ color: 'black' }}>Errors</span>
+            {errors.map((error, index) => (
+              <p key={index}>{error}</p>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

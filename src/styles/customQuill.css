@@ -5,9 +5,11 @@
 
 .ql-container {
   flex-grow: 1;
+  background-color: var(--color-base);
 }
 
 .ql-editor {
   font-size: 1.25rem;
   min-height: 300px;
+  background-color: var(--color-base);
 }
