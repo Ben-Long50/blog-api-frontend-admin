@@ -38,7 +38,7 @@ const PostCard = (props) => {
         <Button
           text={!active ? 'Draft' : 'Active'}
           onClick={handleActive}
-          classes="status-button"
+          classes={`status-button ${active && 'button-active'}`}
         />
         <p className="updated-label">Created:</p>
         <p className="date">{dateCreated}</p>

@@ -4,6 +4,7 @@ import '../styles/form.css';
 import '../styles/post.css';
 import PostCard from './PostCard';
 import List from './List';
+import Button from './Button';
 
 const PostList = () => {
   const [posts, setPosts, mythosCategories] = useOutletContext();
@@ -35,12 +36,10 @@ const PostList = () => {
   return (
     <>
       <List>
-        <div onClick={handleCategory}>All</div>
+        <Button text="All" onClick={handleCategory} />
         {mythosCategories.map((category, index) => {
           return (
-            <div key={index} onClick={handleCategory}>
-              {category}
-            </div>
+            <Button text={category} key={index} onClick={handleCategory} />
           );
         })}
       </List>

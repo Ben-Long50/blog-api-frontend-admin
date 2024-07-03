@@ -21,11 +21,11 @@ const List = (props) => {
         <li
           key={index}
           id={index}
-          style={
-            index === activeItem
-              ? { backgroundColor: 'blue', color: 'white' }
-              : { color: 'black' }
-          }
+          //   style={
+          //     index === activeItem
+          //       ? { backgroundColor: 'rgb(210, 211, 219)', color: 'black' }
+          //       : { color: 'black' }
+          //   }
           onClick={(e) => handleActive(e, index)}
         >
           {child}

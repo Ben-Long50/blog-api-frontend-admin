@@ -10,13 +10,13 @@ const Navigation = () => {
       <Logo />
       <List>
         <Link className="link" to="manage-posts">
-          Manage Posts
+          <Button text="Manage Posts" />
         </Link>
         <Link className="link" to="create-post">
-          Create Post
+          <Button text="Create Post" />
         </Link>
         <Link className="link" to="/login">
-          Log In
+          <Button text="Log In" />
         </Link>
       </List>
     </nav>
