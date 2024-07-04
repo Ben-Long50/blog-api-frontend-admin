@@ -28,7 +28,7 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${apiUrl}/signup`, {
+      const response = await fetch(`${apiUrl}/admin/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
