@@ -13,7 +13,7 @@ const PostCard = (props) => {
   const handleActive = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${apiUrl}/${props.id}/activity`, {
+      const response = await fetch(`${apiUrl}/posts/${props.id}/activity`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
