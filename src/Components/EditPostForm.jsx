@@ -1,11 +1,12 @@
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
-import { useEffect, useState, useRef, useParams } from 'react';
+import { useEffect, useState, useRef, useParams, useContext } from 'react';
 import Form from './Form';
 import InputField from './InputField';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import '../styles/form.css';
 import '../styles/customQuill.css';
+import { AuthContext } from './AuthContext';
 
 const EditPostForm = () => {
   const location = useLocation();
@@ -16,6 +17,7 @@ const EditPostForm = () => {
   const [image, setImage] = useState(undefined);
   const [posts, setPosts, errors, setErrors, mythosCategories] =
     useOutletContext();
+  const { apiUrl } = useContext(AuthContext);
 
   const hiddenInputRef = useRef(null);
   const selectRef = useRef('');
@@ -70,7 +72,7 @@ const EditPostForm = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+      const response = await fetch(`${apiUrl}/posts/${postId}`, {
         method: 'POST',
         body: formData,
         headers: {

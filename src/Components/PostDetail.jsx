@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom';
 import Button from './Button';
 import List from './List';
+import { AuthContext } from './AuthContext';
 
 const PostDetail = () => {
   const [postDetails, setPostDetails] = useState('');
   const { postId } = useParams();
   const [posts, setPosts, mythosCategories] = useOutletContext();
+  const { apiUrl } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -23,7 +25,7 @@ const PostDetail = () => {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+      const response = await fetch(`${apiUrl}/posts/${postId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

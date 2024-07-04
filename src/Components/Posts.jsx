@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import '../styles/form.css';
 import '../styles/post.css';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { AuthContext } from './AuthContext';
 
 const Posts = () => {
   const [posts, setPosts] = useState(() => {
@@ -11,6 +12,7 @@ const Posts = () => {
   });
   const [mythosCategories, setMythosCategories] = useState([]);
   const [errors, setErrors] = useState([]);
+  const { apiUrl } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ const Posts = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:3000/posts', {
+        const response = await fetch(`${apiUrl}/posts`, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,

@@ -11,7 +11,7 @@ const LoginForm = () => {
     password: '',
   });
   const [errors, setErrors] = useState([]);
-  const { login } = useContext(AuthContext);
+  const { login, apiUrl } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -25,7 +25,7 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch(`${apiUrl}/admin/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

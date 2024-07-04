@@ -1,25 +1,24 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import Button from './Button';
+import { AuthContext } from './AuthContext';
 
 const PostCard = (props) => {
   const [active, setActive] = useState(props.active);
+  const { apiUrl } = useContext(AuthContext);
   const dateUpdated = format(props.dateUpdated, 'PP');
   const dateCreated = format(props.dateCreated, 'PP');
 
   const handleActive = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(
-        `http://localhost:3000/posts/${props.id}/activity`,
-        {
-          method: 'PUT',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await fetch(`${apiUrl}/${props.id}/activity`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
       if (response.ok) {
         setActive(!active);
       }

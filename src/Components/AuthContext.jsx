@@ -15,6 +15,8 @@ const AuthProvider = ({ children }) => {
     }
   });
 
+  const apiUrl = 'https://legends-of-the-hearth.adaptable.app';
+
   const login = () => {
     const token = localStorage.getItem('token');
     const decodedUser = jwtDecode(token);
@@ -27,7 +29,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, apiUrl }}>
       {children}
     </AuthContext.Provider>
   );

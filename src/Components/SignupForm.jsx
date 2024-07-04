@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/form.css';
 import Form from './Form';
 import InputField from './InputField';
+import { AuthContext } from './AuthContext';
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const SignupForm = () => {
   });
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
+  const { apiUrl } = useContext(AuthContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +28,7 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/signup', {
+      const response = await fetch(`${apiUrl}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

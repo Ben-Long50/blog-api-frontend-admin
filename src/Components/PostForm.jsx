@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 import Form from './Form';
 import InputField from './InputField';
+import { AuthContext } from './AuthContext';
 import { jwtDecode } from 'jwt-decode';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -15,6 +16,7 @@ const PostForm = () => {
   const [body, setBody] = useState('');
   const [image, setImage] = useState(undefined);
   const [mythosCategories, setMythosCategories] = useState([]);
+  const { apiUrl } = useContext(AuthContext);
 
   const hiddenInputRef = useRef(null);
   const selectRef = useRef('');
@@ -27,7 +29,7 @@ const PostForm = () => {
         const decodedUser = jwtDecode(token);
         setAuthor(decodedUser.user._id);
 
-        const response = await fetch('http://localhost:3000/posts', {
+        const response = await fetch(`${apiUrl}/posts`, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
