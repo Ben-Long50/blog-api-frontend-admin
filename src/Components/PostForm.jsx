@@ -97,7 +97,7 @@ const PostForm = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3000/posts', {
+      const response = await fetch(`${apiUrl}/posts`, {
         method: 'POST',
         body: formData,
         headers: {

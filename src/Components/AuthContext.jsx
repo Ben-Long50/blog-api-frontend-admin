@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
     }
   });
 
-  const apiUrl = 'https://legends-of-the-hearth.adaptable.app';
+  const apiUrl = 'https://localhost:3000';
 
   const login = () => {
     const token = localStorage.getItem('token');
