@@ -25,7 +25,7 @@ const Navigation = () => {
         <Button>
           <Link
             className="link"
-            to={isAuthenticated ? '/manage-posts' : '/login'}
+            to={isAuthenticated ? '/manage-posts' : '/error'}
           >
             Manage Posts
           </Link>
@@ -33,7 +33,7 @@ const Navigation = () => {
         <Button>
           <Link
             className="link"
-            to={isAuthenticated ? '/create-post' : '/login'}
+            to={isAuthenticated ? '/create-post' : '/error'}
           >
             Create Post
           </Link>
